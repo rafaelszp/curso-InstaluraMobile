@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Dimensions, FlatList, StyleSheet} from 'react-native';
+import {Dimensions, FlatList, StyleSheet,Platform} from 'react-native';
 import Post from './src/components/Post'
 
 type Props = {};
@@ -15,18 +15,7 @@ type Props = {};
 
 const screen = Dimensions.get('screen');
 const {width, height} = screen;
-
-const fotos = [
-    {id: 1, name: 'rafael'},
-    {id: 2, name: 'keyla'},
-    {id: 3, name: 'maria'},
-    {id: 4, name: 'joaquim'},
-    {id: 5, name: 'paulo henrique'},
-    {id: 6, name: 'cleide'},
-    {id: 7, name: 'edinaldo'},
-    {id: 8, name: 'valdeci'},
-    {id: 9, name: 'hellen'},
-];
+const marginTop = Platform.OS === 'ios' ? 20 : 0;
 
 const headers = new Headers();
 headers.append('Content-Type','text/plain');
@@ -69,6 +58,7 @@ export default class App extends Component<Props> {
 
 const styles = StyleSheet.create({
     container: {
+        marginTop,
         width,
         height
     }
