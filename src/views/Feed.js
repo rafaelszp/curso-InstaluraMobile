@@ -8,7 +8,7 @@
 
 import React, {Component} from 'react';
 import {Dimensions, FlatList, Platform, StyleSheet} from 'react-native';
-import Post from './src/components/Post'
+import Post from '../components/Post'
 
 type Props = {};
 
@@ -25,9 +25,12 @@ const requestConfig = {
     mode: 'cors',
     cache: 'default'
 };
+
+//Caso o serviço esteja em localhost é preciso utilizar o IP 10.0.2.2 para o serviço de testes, pois o android
+//interpreta localhost como endereço do dispositivo móvel
 const request = new Request('https://instalura-api.herokuapp.com/api/public/fotos/rafael', requestConfig);
 
-export default class App extends Component<Props> {
+export default class Feed extends Component<Props> {
 
     constructor(props) {
         super();
@@ -85,7 +88,6 @@ export default class App extends Component<Props> {
             ...foto,
             comentarios
         };
-        //this.setState({foto: newFoto});
         const fotos = this.state.fotos.map(f => newFoto.id === f.id ? newFoto : f);
         this.setState({fotos});
         commentIn.clear();
