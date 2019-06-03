@@ -10,56 +10,19 @@ export default class Post extends Component {
 
     constructor(props) {
         super(props);
-        const comentarios = [
-            {login: 'dobradordevigas', 'texto': 'foi u câum qui butô pa nois bebê', id: 0},
-            {login: 'amaciadordebigornas', 'texto': 'show de bolinha', id: 1},
-            {login: 'enroladordevergalhoes', 'texto': 'já matei mais de mil', id: 2},
-        ];
-        const foto = {...this.props.foto, comentarios};
+
+        const foto = {...this.props.foto};
         this.state = {foto, newComment: ''};
     }
 
-    handleLike() {
-        let foto = this.state.foto;
-        let likers = foto.likers || [];
-        if (!foto.likeada) {
-            likers.push({'nome': 'teste', 'login': 'teste'})
-        } else {
-            likers = likers.filter(liker => {
-                return liker.login !== 'teste';
-            });
-        }
-        const newFoto = {
-            ...foto,
-            likeada: !foto.likeada,
-            likers
-        };
-        this.setState({foto: newFoto})
-    }
 
-    addComment(newComment, commentIn) {
 
-        if (!newComment || newComment.length === 0) return;
-
-        const comentarios = [...this.state.foto.comentarios, {
-            'id': parseInt(Math.random() * 1000),
-            'login': 'encantadordeestatuas',
-            'texto': newComment
-        }];
-        const newFoto = {
-            ...this.state.foto,
-            comentarios
-        };
-
-        this.setState({foto: newFoto});
-        commentIn.clear();
-    }
 
 
     render() {
 
 
-        const {foto} = this.state;
+        const {commentCallback,likeCallback,foto} = this.props;
 
         const showTitle = (foto) => {
 
@@ -89,12 +52,12 @@ export default class Post extends Component {
                 <Image source={{uri: foto.urlFoto}} style={styles.postImage}/>
                 <View style={styles.interactions}>
 
-                    <Like foto={foto} likeCallback={this.handleLike.bind(this)}/>
+                    <Like foto={foto} likeCallback={() => {likeCallback(foto.id)}}/>
 
                     {showTitle(foto)}
                     {showComments(foto)}
 
-                    <InputComentario commentAddCallback={this.addComment.bind(this)}/>
+                    <InputComentario commentAddCallback={commentCallback} fotoId={foto.id}/>
 
                 </View>
 
