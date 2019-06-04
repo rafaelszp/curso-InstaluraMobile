@@ -3,6 +3,8 @@ import { createStackNavigator, createAppContainer,createSwitchNavigator } from '
 import Feed from '../views/Feed';
 import Login from '../views/Login';
 import AuthLoadingScreen from '../views/AuthLoading';
+import { useScreens } from 'react-native-screens';
+useScreens();
 
 const AppStack = createStackNavigator({
         'Feed': Feed,
