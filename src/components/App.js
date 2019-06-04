@@ -1,19 +1,37 @@
 import React, {Component} from 'react';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { createStackNavigator, createAppContainer,createSwitchNavigator } from 'react-navigation';
 import Feed from '../views/Feed';
 import Login from '../views/Login';
+import AuthLoadingScreen from '../views/AuthLoading';
 
-const RootStack = createStackNavigator(
+const AppStack = createStackNavigator({
+        'Feed': Feed,
+},{
+    initialRouteName:'Feed',
+    headerMode: "none"
+});
+
+const AuthStack = createStackNavigator(
     {
         'Login': Login,
-        'Feed': Feed
     },
     {
         initialRouteName: 'Login',
+        headerMode: "none"
     }
 );
 
-const AppContainer = createAppContainer(RootStack);
+const AppContainer = createAppContainer(createSwitchNavigator(
+    {
+        'AuthLoading': AuthLoadingScreen,
+        'App': AppStack,
+        'Login': AuthStack
+    },{
+        initialRouteName: 'AuthLoading',
+        headerMode: "none"
+
+    }
+));
 
 export default class App extends Component {
 
