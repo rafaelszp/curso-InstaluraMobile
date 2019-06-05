@@ -8,9 +8,10 @@ useScreens();
 
 const AppStack = createStackNavigator({
         'Feed': Feed,
+        'GotoAnotherFeed': Feed,
 },{
     initialRouteName:'Feed',
-    headerMode: "none"
+    // headerMode: "none"
 });
 
 const AuthStack = createStackNavigator(

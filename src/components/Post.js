@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
+import {Dimensions, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 import InputComentario from './InputComentario'
 import Like from './Like'
@@ -16,13 +16,10 @@ export default class Post extends Component {
     }
 
 
-
-
-
     render() {
 
 
-        const {commentCallback,likeCallback,foto} = this.props;
+        const {commentCallback, likeCallback, foto, showProfileCallback} = this.props;
 
         const showTitle = (foto) => {
 
@@ -46,13 +43,19 @@ export default class Post extends Component {
         return (
             <View style={styles.post}>
                 <View style={styles.profile}>
-                    <Image source={{uri: foto.urlPerfil}} style={styles.profileFoto}/>
+                    <TouchableOpacity onPress={() => {
+                        showProfileCallback(foto)
+                    }}>
+                        <Image source={{uri: foto.urlPerfil}} style={styles.profileFoto}/>
+                    </TouchableOpacity>
                     <Text>{foto.loginUsuario}</Text>
                 </View>
                 <Image source={{uri: foto.urlFoto}} style={styles.postImage}/>
                 <View style={styles.interactions}>
 
-                    <Like foto={foto} likeCallback={() => {likeCallback(foto.id)}}/>
+                    <Like foto={foto} likeCallback={() => {
+                        likeCallback(foto.id)
+                    }}/>
 
                     {showTitle(foto)}
                     {showComments(foto)}
